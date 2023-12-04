@@ -1,0 +1,38 @@
+<%- include('./templates/cabecera') %>
+
+    <div class="container is-fluid">
+        <section
+            class="section is-flex is-justify-content-center is-align-content-center is-align-items-center is-flex-direction-column">
+            <h1 class="title">Tabla dinámica</h1>
+            <h2 class="subtitle mt-2 has-text-centered">Tabla dinámica para practicar con la base de datos</h2>
+               <table class="table">
+                <thead>
+                  <tr>
+                    <th>id</th>
+                    <th>Nombre</th>
+                    <th>Edat</th>
+                   
+                   
+                  </tr>
+                </thead>
+                
+                <tbody>
+                    <% if (arrayClientes.length > 0) { %>
+                        <% arrayClientes.forEach(element => { %>
+                            <tr>
+                                <td><%= element.id %></td>
+                                <td ><strong style="color:rgb(164, 206, 11)"><%= element.nombre %></strong></td>
+                                <td><%= element.edat %></td>
+                               
+                            </tr>
+                     <% }) %>
+                    <% } %> 
+                </tbody>
+              </table>
+
+        </section>
+    </div>
+
+
+
+    <%- include('./templates/footer') %>
