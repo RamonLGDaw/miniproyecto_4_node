@@ -4,6 +4,13 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
+
+//Versión actualizada. body-parser esta DEPRECATED
+// parse application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false }))
+// parse application/json
+app.use(express.json())
+
 //Pruebas para averiguar porque no funcionaban las putas variables de entorno... al final es que USER debe ser una palabra 'reservada' o algo asi
 
  const puerto = process.env.PORT || 3000;
