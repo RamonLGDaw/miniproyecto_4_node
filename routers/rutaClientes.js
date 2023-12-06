@@ -7,21 +7,21 @@ router.get('/', async (req, res) => {
 
     try {
         const arrayClientesDB = await cliente.find()
-       // console.log(arrayGatosDB);
+        // console.log(arrayGatosDB);
         res.render('clientes', {
-                arrayClientes : arrayClientesDB
+            arrayClientes: arrayClientesDB
         })
 
     } catch (error) {
         console.log(error);
-    }   
+    }
 })
 
-router.get('/crear', (req,res)=>{
+router.get('/crear', (req, res) => {
     res.render('crear')
 })
 
-router.post('/', async(req, res)=>{
+router.post('/', async (req, res) => {
     const body = req.body
 
     try {
@@ -29,6 +29,25 @@ router.post('/', async(req, res)=>{
         res.redirect('/clientes')
     } catch (error) {
         console.log('error', error)
+    }
+})
+
+router.get('/:id', async (req, res) => {
+    const id = req.params.id
+    
+    try {
+        const clienteBD = await cliente.findOne({ _id: id });
+        
+        res.render('detalle', {
+            elemento: clienteBD, 
+            error: false
+        })
+    } catch (error) {
+        console.log(error)
+        res.render('detalle', {
+            mensaje: 'id no encontrada!!', 
+            error: true
+        })
     }
 })
 

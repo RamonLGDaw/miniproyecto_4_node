@@ -13,6 +13,7 @@
                     <th>id</th>
                     <th>Nombre</th>
                     <th>Edat</th>
+                    <th>Acción</th>
                   </tr>
                 </thead>
                 
@@ -23,6 +24,7 @@
                                 <td><%= element.id %></td>
                                 <td ><strong style="color:rgb(164, 206, 11)"><%= element.nombre %></strong></td>
                                 <td><%= element.edat %></td>
+                                <td><a href="/clientes/<%= element.id %>" class="button is-info is-small">editar</a></td>
                             </tr>
                      <% }) %>
                     <% } %> 

@@ -1,0 +1,49 @@
+<%- include('./templates/cabecera') %>
+
+    <div class="container is-fluid">
+
+        <section
+            class="section is-flex is-justify-content-center is-align-content-center is-align-items-center is-flex-direction-column">
+
+            <h2 class="title is-1 has-text-primary mt-2 has-text-centered">Vista Detalle</h2>
+            <!-- <a href="./clientes/crear" class="button is-medium is-success mb-2">Crear nuevo registro</a> -->
+            <% if (error) { %>
+             <p  class="title is-3"><%= mensaje %></p>
+             <a href="/clientes" class="button is-info">volver a clientes</a>
+            <% } %>
+
+
+            <% if (!error) { %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Nombre</th>
+                            <th>Edat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <%= elemento.id %>
+                            </td>
+                            <td><strong style="color:rgb(164, 206, 11)">
+                                    <%= elemento.nombre %>
+                                </strong></td>
+                            <td>
+                                <%= elemento.edat %>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            <% } %>
+            
+            
+            
+            
+            
+            
+        </section>
+    </div>
+
+    <%- include('./templates/footer') %>
