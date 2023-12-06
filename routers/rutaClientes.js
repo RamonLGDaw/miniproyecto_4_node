@@ -34,20 +34,42 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const id = req.params.id
-    
+
     try {
         const clienteBD = await cliente.findOne({ _id: id });
-        
+
         res.render('detalle', {
-            elemento: clienteBD, 
+            elemento: clienteBD,
             error: false
         })
     } catch (error) {
         console.log(error)
         res.render('detalle', {
-            mensaje: 'id no encontrada!!', 
+            mensaje: 'id no encontrada!!',
             error: true
         })
+    }
+})
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const clienteBD = await cliente.findByIdAndDelete({ _id: id })
+
+        if(clienteBD){
+            res.json({
+                estado: true,
+                mensaje: 'eliminado! UUooooo!'
+            })
+        } else {
+            res.json({
+                estado: false,
+                mensaje: 'No se puede eliminar, ups'
+            })
+        }
+    } catch (error) {
+        console.log(error)
     }
 })
 
