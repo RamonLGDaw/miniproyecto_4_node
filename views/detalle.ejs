@@ -16,32 +16,17 @@
 
 
                     <% if (!error) { %>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Nombre</th>
-                                    <th>Edat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <%= elemento.id %>
-                                    </td>
-                                    <td><strong style="color:rgb(164, 206, 11)">
-                                            <%= elemento.nombre %>
-                                        </strong></td>
-                                    <td>
-                                        <%= elemento.edat %>
-                                    </td>
-                                    <td>
-                                        <button class="button is-danger is-small" id="btnEliminar"
-                                            data-id="<%= elemento.id %>">Eliminar</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                        <form id="formularioEditar" data-id="<%= elemento.id %>">
+                            <input type="text" class="input is-primary mt-2" name="nombre"
+                                value="<%= elemento.nombre %>" id="nombreInput">
+                            <input type="text" class="input is-primary mt-2" name="edat" id="edatInput"
+                                value="<%= elemento.edat %>">
+                            <button class="button is-warning mt-2" type="submit">editar</button>
+                        </form>
+
+                        <button class="button is-danger" id="btnEliminar" data-id="<%= elemento.id %>">Eliminar</button>
+
                         <% } %>
 
 
@@ -72,6 +57,46 @@
                 console.log(error)
             }
         })
+
+
+        const formularioEditar = document.querySelector('#formularioEditar');
+        formularioEditar.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            console.log('submit')
+
+            const nombre = formularioEditar.elements['nombre'].value;
+            //Otra manera diferente de hacer lo mismo anterior
+            const edat = document.querySelector('#edatInput').value;
+            const id = formularioEditar.dataset.id
+
+            console.log(nombre, edat, id)
+
+            try {
+                const data = await fetch(`/clientes/${id}`, {
+                    method: 'put',
+                    headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: JSON.stringify({ nombre: nombre, edat: edat })
+                })
+
+                const res = await data.json()
+                console.log(res)
+
+
+                if (res.estado) {
+                    window.location.href = '/clientes'
+                } else {
+                    console.log(res)
+                }
+
+
+            } catch (error) {
+                console.log(error)
+            }
+        })
+
 
     </script>
     <%- include('./templates/footer') %>

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 
 const cliente = require('../model/cliente');
+const { ClientEncryption } = require('mongodb');
 
 router.get('/', async (req, res) => {
 
@@ -57,7 +58,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const clienteBD = await cliente.findByIdAndDelete({ _id: id })
 
-        if(clienteBD){
+        if (clienteBD) {
             res.json({
                 estado: true,
                 mensaje: 'eliminado! UUooooo!'
@@ -70,6 +71,28 @@ router.delete('/:id', async (req, res) => {
         }
     } catch (error) {
         console.log(error)
+    }
+})
+
+
+router.put('/:id', async (req, res) => {
+    const id = req.params.id;
+    const body = req.body;
+
+    try {
+        const clienteBD = await cliente.findByIdAndUpdate(id, body, { useFindAndModify: false })
+        console.log(clienteBD)
+        res.json({
+            estado: true,
+            mensaje: 'Modificado! UUooooo!'
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.json({
+            estado: false,
+            mensaje: 'ups... no se pudo modificar'
+        })
     }
 })
 
